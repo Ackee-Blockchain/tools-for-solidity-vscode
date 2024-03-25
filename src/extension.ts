@@ -32,6 +32,8 @@ import { DetectorItem } from './detections/model/DetectorItem';
 import { ClientMiddleware } from './ClientMiddleware';
 import { ClientErrorHandler } from './ClientErrorHandler';
 import { ExecaChildProcess, execa, execaSync } from 'execa';
+import { PrintersHandler } from './printers/PrintersHandler'
+
 
 let client: LanguageClient | undefined = undefined;
 let wakeProcess: ExecaChildProcess | undefined = undefined;
@@ -40,7 +42,9 @@ let solcProvider: SolcTreeDataProvider | undefined = undefined;
 let diagnosticCollection: vscode.DiagnosticCollection
 let analytics: Analytics;
 let errorHandler: ClientErrorHandler;
+let printers: PrintersHandler;
 let crashlog: string[] = [];
+
 //export let log: Log
 
 const WAKE_TARGET_VERSION = "4.6.0";
@@ -392,6 +396,7 @@ export async function activate(context: vscode.ExtensionContext) {
 
     client = new LanguageClient("Tools-for-Solidity", "Tools for Solidity", serverOptions, clientOptions);
     errorHandler.setClient(client);
+    printers = new PrintersHandler(client, context, outputChannel);
 
     diagnosticCollection = vscode.languages.createDiagnosticCollection('Wake')
 
@@ -456,6 +461,8 @@ function registerCommands(outputChannel: vscode.OutputChannel, context: vscode.E
         wakeProvider?.clear();
         vscode.commands.executeCommand('wake.lsp.force_recompile');
     }))
+
+    context.subscriptions.push(vscode.commands.registerCommand("Tools-for-Solidity.wake_callback", async (documentUri: vscode.Uri, callbackType: string, callbackId: string) => await vscode.commands.executeCommand('wake.callback', documentUri, callbackType, callbackId)));
 
 }
 
