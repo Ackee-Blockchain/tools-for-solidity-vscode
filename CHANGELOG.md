@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.19.4]
+### Fixes
+- Fixed conda installation verification
+
 ## [1.19.3]
 ### Features
 - Implemented a new status bar hover window displaying current Wake and Anvil versions with compatibility status indicators

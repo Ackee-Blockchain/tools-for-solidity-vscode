@@ -1,7 +1,7 @@
 {
     "name": "tools-for-solidity",
     "displayName": "Solidity (Wake)",
-    "version": "1.19.3",
+    "version": "1.19.4",
     "publisher": "AckeeBlockchain",
     "description": "Remix-like development in VS Code with real-time security analysis, advanced testing, and local node deployment. Compile, debug, and audit fast with Wake's vulnerability detection even in your Hardhat & Foundry workflows.",
     "keywords": [
