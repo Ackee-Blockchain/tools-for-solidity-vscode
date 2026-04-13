@@ -124,6 +124,10 @@ The Solidity extension uses the PyPi package [eth-wake](https://pypi.org/project
 
 Rosetta is required to be enabled on Apple Silicon Macs.
 
+## Donations
+
+The project is listed on Giveth: https://giveth.io/project/solidity-wake:-vs-code-extension
+
 ## Credits
 [juanfranblanco/vscode-solidity](https://github.com/juanfranblanco/vscode-solidity/blob/master/syntaxes/solidity.json): a base of our Solidity grammar
 
