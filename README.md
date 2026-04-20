@@ -10,7 +10,7 @@ Ethereum Solidity local node testing with security features for Visual Studio Co
 
 Develop, test, and secure Solidity smart contracts directly in Visual Studio Code with real-time security analysis, local node testing, and advanced debugging tools. Solidity (Wake) brings a Remix-like experience to your existing workflow with tools for compilation, deployment, and contract interaction on a local Ethereum network. Catch security risks early with built-in vulnerability detection, call graphs, and contract inheritance visualization without leaving VS Code.
 
-This extension was built by a leading blockchain auditing firm that has worked with Lido, AAVE, Axelar, Safe, LayerZero, and more. It was developed for our professional needs and made open-source for a safer web3.
+This extension was built by a leading blockchain auditing firm that has worked with Lido, AAVE, Axelar, Safe, LayerZero, and more. It was developed for our professional needs and made open-source for a safer Web3.
 
 Benefits:
 - [Test and interact with your smart contracts on an Ethereum local node](#test-and-interact-with-your-smart-contracts-on-an-ethereum-local-node)
@@ -45,7 +45,7 @@ Test your deployed contracts by interacting with them using function calls with 
 
 ![Interact with contracts](images/readme/sake/2-interact.gif)
 
-### Fork mainnet or L2s to interact with onchain contracts
+### Fork mainnet or L2s to interact with on-chain contracts
 
 ![Forking chain and fetching contracts](images/readme/sake/forking_chain_and_fetching_contracts.gif)
 
@@ -55,7 +55,7 @@ Test your deployed contracts by interacting with them using function calls with 
 
 ## See vulnerabilities from static analysis in real-time
 
-### Free detections with leading security tool Wake
+### Free detections with the leading security tool Wake
 
 Catch potential issues early with real-time static analysis
 
@@ -66,10 +66,10 @@ Catch potential issues early with real-time static analysis
 Get an overall overview of issues in your project
 
 ![Security overview in the sidebar](images/readme/diagnostics/3-sidebar-overview.gif)
-it
+
 ### Compilation Errors
 
-See compilation errors highlighted in code
+See compilation errors highlighted in the code
 
 ![Compilation errors](images/readme/diagnostics/1-compilation-errors.gif)
 
@@ -83,7 +83,7 @@ Quickly navigate to any function or variable definition with a click
 
 ### Find references
 
-Right click to see a context menu, and use it to find all references
+Right-click to see a context menu, and use it to find all references
 
 ![Find references](images/readme/development/references.gif)
 
@@ -120,7 +120,7 @@ Visualise contract inheritance and function control flows with graphs
 
 ## Requirements
 
-The Solidity extension uses the PyPi package [eth-wake](https://pypi.org/project/eth-wake/) which requires Python 3.8 or higher. This package is automatically installed via [conda](https://conda.github.io/conda-pack/) by default.
+The Solidity extension uses the PyPi package [eth-wake](https://pypi.org/project/eth-wake/), which requires Python 3.8 or higher. This package is automatically installed via [conda](https://conda.github.io/conda-pack/) by default.
 
 Rosetta is required to be enabled on Apple Silicon Macs.
 
@@ -139,7 +139,7 @@ Enjoy the extension? Consider [giving it a review](https://marketplace.visualstu
 
 Get help and give feedback in our [Discord](https://discord.gg/x7qXXnGCsa)
 
-Follow Ackee on [Twitter](https://twitter.com/AckeeBlockchain)
+Follow Ackee on [X](https://x.com/AckeeBlockchain)
 
 
 ## Known Issues
