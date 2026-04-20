@@ -3,18 +3,73 @@ import { FunctionInputParseError } from './errors';
 import { toWei, type EtherUnits } from 'web3-utils';
 
 const TYPE_LIMITS = {
+    // Unsigned integers (uint8 to uint256 in steps of 8)
     uint8: { min: BigInt(0), max: BigInt(2) ** BigInt(8) - BigInt(1) },
     uint16: { min: BigInt(0), max: BigInt(2) ** BigInt(16) - BigInt(1) },
+    uint24: { min: BigInt(0), max: BigInt(2) ** BigInt(24) - BigInt(1) },
     uint32: { min: BigInt(0), max: BigInt(2) ** BigInt(32) - BigInt(1) },
+    uint40: { min: BigInt(0), max: BigInt(2) ** BigInt(40) - BigInt(1) },
+    uint48: { min: BigInt(0), max: BigInt(2) ** BigInt(48) - BigInt(1) },
+    uint56: { min: BigInt(0), max: BigInt(2) ** BigInt(56) - BigInt(1) },
     uint64: { min: BigInt(0), max: BigInt(2) ** BigInt(64) - BigInt(1) },
+    uint72: { min: BigInt(0), max: BigInt(2) ** BigInt(72) - BigInt(1) },
+    uint80: { min: BigInt(0), max: BigInt(2) ** BigInt(80) - BigInt(1) },
+    uint88: { min: BigInt(0), max: BigInt(2) ** BigInt(88) - BigInt(1) },
+    uint96: { min: BigInt(0), max: BigInt(2) ** BigInt(96) - BigInt(1) },
+    uint104: { min: BigInt(0), max: BigInt(2) ** BigInt(104) - BigInt(1) },
+    uint112: { min: BigInt(0), max: BigInt(2) ** BigInt(112) - BigInt(1) },
+    uint120: { min: BigInt(0), max: BigInt(2) ** BigInt(120) - BigInt(1) },
     uint128: { min: BigInt(0), max: BigInt(2) ** BigInt(128) - BigInt(1) },
+    uint136: { min: BigInt(0), max: BigInt(2) ** BigInt(136) - BigInt(1) },
+    uint144: { min: BigInt(0), max: BigInt(2) ** BigInt(144) - BigInt(1) },
+    uint152: { min: BigInt(0), max: BigInt(2) ** BigInt(152) - BigInt(1) },
+    uint160: { min: BigInt(0), max: BigInt(2) ** BigInt(160) - BigInt(1) },
+    uint168: { min: BigInt(0), max: BigInt(2) ** BigInt(168) - BigInt(1) },
+    uint176: { min: BigInt(0), max: BigInt(2) ** BigInt(176) - BigInt(1) },
+    uint184: { min: BigInt(0), max: BigInt(2) ** BigInt(184) - BigInt(1) },
+    uint192: { min: BigInt(0), max: BigInt(2) ** BigInt(192) - BigInt(1) },
+    uint200: { min: BigInt(0), max: BigInt(2) ** BigInt(200) - BigInt(1) },
+    uint208: { min: BigInt(0), max: BigInt(2) ** BigInt(208) - BigInt(1) },
+    uint216: { min: BigInt(0), max: BigInt(2) ** BigInt(216) - BigInt(1) },
+    uint224: { min: BigInt(0), max: BigInt(2) ** BigInt(224) - BigInt(1) },
+    uint232: { min: BigInt(0), max: BigInt(2) ** BigInt(232) - BigInt(1) },
+    uint240: { min: BigInt(0), max: BigInt(2) ** BigInt(240) - BigInt(1) },
+    uint248: { min: BigInt(0), max: BigInt(2) ** BigInt(248) - BigInt(1) },
     uint256: { min: BigInt(0), max: BigInt(2) ** BigInt(256) - BigInt(1) },
     uint: { min: BigInt(0), max: BigInt(2) ** BigInt(256) - BigInt(1) }, // alias for uint256
+    
+    // Signed integers (int8 to int256 in steps of 8)
     int8: { min: -(BigInt(2) ** BigInt(7)), max: BigInt(2) ** BigInt(7) - BigInt(1) },
     int16: { min: -(BigInt(2) ** BigInt(15)), max: BigInt(2) ** BigInt(15) - BigInt(1) },
+    int24: { min: -(BigInt(2) ** BigInt(23)), max: BigInt(2) ** BigInt(23) - BigInt(1) },
     int32: { min: -(BigInt(2) ** BigInt(31)), max: BigInt(2) ** BigInt(31) - BigInt(1) },
+    int40: { min: -(BigInt(2) ** BigInt(39)), max: BigInt(2) ** BigInt(39) - BigInt(1) },
+    int48: { min: -(BigInt(2) ** BigInt(47)), max: BigInt(2) ** BigInt(47) - BigInt(1) },
+    int56: { min: -(BigInt(2) ** BigInt(55)), max: BigInt(2) ** BigInt(55) - BigInt(1) },
     int64: { min: -(BigInt(2) ** BigInt(63)), max: BigInt(2) ** BigInt(63) - BigInt(1) },
+    int72: { min: -(BigInt(2) ** BigInt(71)), max: BigInt(2) ** BigInt(71) - BigInt(1) },
+    int80: { min: -(BigInt(2) ** BigInt(79)), max: BigInt(2) ** BigInt(79) - BigInt(1) },
+    int88: { min: -(BigInt(2) ** BigInt(87)), max: BigInt(2) ** BigInt(87) - BigInt(1) },
+    int96: { min: -(BigInt(2) ** BigInt(95)), max: BigInt(2) ** BigInt(95) - BigInt(1) },
+    int104: { min: -(BigInt(2) ** BigInt(103)), max: BigInt(2) ** BigInt(103) - BigInt(1) },
+    int112: { min: -(BigInt(2) ** BigInt(111)), max: BigInt(2) ** BigInt(111) - BigInt(1) },
+    int120: { min: -(BigInt(2) ** BigInt(119)), max: BigInt(2) ** BigInt(119) - BigInt(1) },
     int128: { min: -(BigInt(2) ** BigInt(127)), max: BigInt(2) ** BigInt(127) - BigInt(1) },
+    int136: { min: -(BigInt(2) ** BigInt(135)), max: BigInt(2) ** BigInt(135) - BigInt(1) },
+    int144: { min: -(BigInt(2) ** BigInt(143)), max: BigInt(2) ** BigInt(143) - BigInt(1) },
+    int152: { min: -(BigInt(2) ** BigInt(151)), max: BigInt(2) ** BigInt(151) - BigInt(1) },
+    int160: { min: -(BigInt(2) ** BigInt(159)), max: BigInt(2) ** BigInt(159) - BigInt(1) },
+    int168: { min: -(BigInt(2) ** BigInt(167)), max: BigInt(2) ** BigInt(167) - BigInt(1) },
+    int176: { min: -(BigInt(2) ** BigInt(175)), max: BigInt(2) ** BigInt(175) - BigInt(1) },
+    int184: { min: -(BigInt(2) ** BigInt(183)), max: BigInt(2) ** BigInt(183) - BigInt(1) },
+    int192: { min: -(BigInt(2) ** BigInt(191)), max: BigInt(2) ** BigInt(191) - BigInt(1) },
+    int200: { min: -(BigInt(2) ** BigInt(199)), max: BigInt(2) ** BigInt(199) - BigInt(1) },
+    int208: { min: -(BigInt(2) ** BigInt(207)), max: BigInt(2) ** BigInt(207) - BigInt(1) },
+    int216: { min: -(BigInt(2) ** BigInt(215)), max: BigInt(2) ** BigInt(215) - BigInt(1) },
+    int224: { min: -(BigInt(2) ** BigInt(223)), max: BigInt(2) ** BigInt(223) - BigInt(1) },
+    int232: { min: -(BigInt(2) ** BigInt(231)), max: BigInt(2) ** BigInt(231) - BigInt(1) },
+    int240: { min: -(BigInt(2) ** BigInt(239)), max: BigInt(2) ** BigInt(239) - BigInt(1) },
+    int248: { min: -(BigInt(2) ** BigInt(247)), max: BigInt(2) ** BigInt(247) - BigInt(1) },
     int256: { min: -(BigInt(2) ** BigInt(255)), max: BigInt(2) ** BigInt(255) - BigInt(1) },
     int: { min: -(BigInt(2) ** BigInt(255)), max: BigInt(2) ** BigInt(255) - BigInt(1) } // alias for int256
 } as const;
@@ -93,9 +148,35 @@ export function validateAndParseType(value: string, type: string): string {
         case 'uint':
         case 'uint8':
         case 'uint16':
+        case 'uint24':
         case 'uint32':
+        case 'uint40':
+        case 'uint48':
+        case 'uint56':
         case 'uint64':
+        case 'uint72':
+        case 'uint80':
+        case 'uint88':
+        case 'uint96':
+        case 'uint104':
+        case 'uint112':
+        case 'uint120':
         case 'uint128':
+        case 'uint136':
+        case 'uint144':
+        case 'uint152':
+        case 'uint160':
+        case 'uint168':
+        case 'uint176':
+        case 'uint184':
+        case 'uint192':
+        case 'uint200':
+        case 'uint208':
+        case 'uint216':
+        case 'uint224':
+        case 'uint232':
+        case 'uint240':
+        case 'uint248':
         case 'uint256':
             const parsedUintValue = parseComplexNumber(value);
             _validateUintType(parsedUintValue, type);
@@ -105,9 +186,35 @@ export function validateAndParseType(value: string, type: string): string {
         case 'int':
         case 'int8':
         case 'int16':
+        case 'int24':
         case 'int32':
+        case 'int40':
+        case 'int48':
+        case 'int56':
         case 'int64':
+        case 'int72':
+        case 'int80':
+        case 'int88':
+        case 'int96':
+        case 'int104':
+        case 'int112':
+        case 'int120':
         case 'int128':
+        case 'int136':
+        case 'int144':
+        case 'int152':
+        case 'int160':
+        case 'int168':
+        case 'int176':
+        case 'int184':
+        case 'int192':
+        case 'int200':
+        case 'int208':
+        case 'int216':
+        case 'int224':
+        case 'int232':
+        case 'int240':
+        case 'int248':
         case 'int256':
             const parsedIntValue = parseComplexNumber(value);
             _validateIntType(parsedIntValue, type);
@@ -256,73 +363,25 @@ function _validateUintType(value: bigint, type: string): void {
     if (value < 0) {
         throw new FunctionInputParseError('Uint should be positive');
     }
-    switch (type) {
-        case 'uint8':
-            assert(value <= TYPE_LIMITS.uint8.max, 'Numbers is out of uint8 range');
-            break;
-        case 'uint16':
-            assert(value <= TYPE_LIMITS.uint16.max, 'Numbers is out of uint16 range');
-            break;
-        case 'uint32':
-            assert(value <= TYPE_LIMITS.uint32.max, 'Numbers is out of uint32 range');
-            break;
-        case 'uint64':
-            assert(value <= TYPE_LIMITS.uint64.max, 'Numbers is out of uint64 range');
-            break;
-        case 'uint128':
-            assert(value <= TYPE_LIMITS.uint128.max, 'Numbers is out of uint128 range');
-            break;
-        case 'uint':
-        case 'uint256':
-            assert(value <= TYPE_LIMITS.uint256.max, 'Numbers is out of uint256 range');
-            break;
-        default:
-            throw new FunctionInputParseError(`Unexpected uint type "${type}"`);
+    
+    const typeLimit = TYPE_LIMITS[type as keyof typeof TYPE_LIMITS];
+    if (!typeLimit) {
+        throw new FunctionInputParseError(`Unexpected uint type "${type}"`);
     }
+    
+    assert(value <= typeLimit.max, `Number is out of ${type} range`);
 }
 
 function _validateIntType(value: bigint, type: string): void {
-    switch (type) {
-        case 'int8':
-            assert(
-                value <= TYPE_LIMITS.int8.max && value >= TYPE_LIMITS.int8.min,
-                'Numbers is out of int8 range'
-            );
-            break;
-        case 'int16':
-            assert(
-                value <= TYPE_LIMITS.int16.max && value >= TYPE_LIMITS.int16.min,
-                'Numbers is out of int16 range'
-            );
-            break;
-        case 'int32':
-            assert(
-                value <= TYPE_LIMITS.int32.max && value >= TYPE_LIMITS.int32.min,
-                'Numbers is out of int32 range'
-            );
-            break;
-        case 'int64':
-            assert(
-                value <= TYPE_LIMITS.int64.max && value >= TYPE_LIMITS.int64.min,
-                'Numbers is out of int64 range'
-            );
-            break;
-        case 'int128':
-            assert(
-                value <= TYPE_LIMITS.int128.max && value >= TYPE_LIMITS.int128.min,
-                'Numbers is out of int128 range'
-            );
-            break;
-        case 'int':
-        case 'int256':
-            assert(
-                value <= TYPE_LIMITS.int256.max && value >= TYPE_LIMITS.int256.min,
-                'Numbers is out of int256 range'
-            );
-            break;
-        default:
-            throw new FunctionInputParseError(`Unexpected int type "${type}"`);
+    const typeLimit = TYPE_LIMITS[type as keyof typeof TYPE_LIMITS];
+    if (!typeLimit) {
+        throw new FunctionInputParseError(`Unexpected int type "${type}"`);
     }
+    
+    assert(
+        value <= typeLimit.max && value >= typeLimit.min,
+        `Number is out of ${type} range`
+    );
 }
 
 /**
